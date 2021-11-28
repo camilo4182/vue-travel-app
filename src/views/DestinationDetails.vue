@@ -15,7 +15,7 @@
         <p>{{ destination.description }}</p>
       </div>
     </section>
-    <section class="experiences">
+    <section class="experiences" id="experience">
       <h2>Top experiences in {{ destination.name }}</h2>
       <div class="cards">
         <div
@@ -23,7 +23,12 @@
           v-for="experience in destination.experiences"
           :key="experience.slug"
         >
-          <router-link :to="{ name: 'experienceDetails', params: { experienceSlug: experience.slug}}">
+          <router-link :to="{
+              name: 'experienceDetails',
+              params: { experienceSlug: experience.slug},
+              hash: '#experience'
+            }"
+          >
             <img
               :src="require(`@/assets/${experience.image}`)"
               :alt="experience.name"
@@ -85,6 +90,9 @@ p {
   margin: 0 40px;
   font-size: 20px;
   text-align: left;
+}
+.experiences {
+  padding: 40px 0;
 }
 .destination-details {
   display: flex;

@@ -1,18 +1,20 @@
 <template>
   <div id="app">
     <TheNavigation />
-    <router-view :key="$route.path" />
+    <transition name="fade" mode="out-in">
+      <router-view :key="$route.params.slug" />
+    </transition>
   </div>
 </template>
 
 <script>
-import TheNavigation from "@/components/TheNavigation"
+import TheNavigation from "@/components/TheNavigation";
 
 export default {
   components: {
-    TheNavigation
-  }
-}
+    TheNavigation,
+  },
+};
 </script>
 
 <style>
@@ -22,5 +24,56 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+/* Slide transition */
+.slide-enter-active,
+.slide-leave-active {
+  transition: opacity 1s, transform 1s;
+}
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  transform: translate(-30%);
+}
+
+/* MoveUP transition */
+.moveUp-enter-active {
+  animation: fadeIn 0.8s ease-in;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.moveUp-leave-active {
+  animation: moveUp 0.3s ease-in;
+}
+@keyframes moveUp {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-400px);
+  }
+  100% {
+    transform: translateY(-800px);
+  }
+}
+
+/* Fade transition */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
