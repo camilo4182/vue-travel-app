@@ -19,6 +19,12 @@
           {{ destination.name }}
         </router-link>
       </li>
+      <li class="links">
+        <router-link :to="{ name: 'user' }">Dashboard</router-link>
+      </li>
+      <li class="links">
+        <router-link :to="{ name: 'invoices' }">Invoices</router-link>
+      </li>
     </ul>
   </nav>
 </template>
@@ -29,7 +35,7 @@ import store from "@/store";
 export default {
   data() {
     return {
-      destinations: store.destinations,
+      destinations: store.destinations
     };
   }
 };

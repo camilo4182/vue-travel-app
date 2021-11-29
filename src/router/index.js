@@ -10,7 +10,7 @@ const routes = [
     path: "/",
     name: "Home",
     props: true,
-    component: Home,
+    component: Home
   },
   {
     path: "/destination/:slug",
@@ -60,14 +60,34 @@ const routes = [
       } else {
         next({ name: "NotFound" });
       }
-    },
+    }
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/Login.vue")
+  },
+  {
+    path: "/user",
+    name: "user",
+    component: () =>
+      import(/* webpackChunkName: "user" */ "../views/User.vue"),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/invoices",
+    name: "invoices",
+    component: () =>
+      import(/* webpackChunkName: "invoices" */ "../views/Invoices.vue"),
+    meta: { requiresAuth: true }
   },
   {
     path: "/404",
     alias: "*",
     name: "NotFound",
     component: () =>
-      import(/* webpackChunkName: "notFound" */ "../views/NotFound.vue"),
+      import(/* webpackChunkName: "notFound" */ "../views/NotFound.vue")
   },
 ];
 
@@ -125,6 +145,24 @@ const router = new VueRouter({
     });
   }, */
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) { // Se usa matched para verificar si algun route record tiene la propiedad meta.requireAuth
+    // Need authentication
+    if (!store.user) {
+      next({
+        name: "login",
+        query: {
+          redirect: to.fullPath
+        }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
