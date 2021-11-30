@@ -25,6 +25,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+  
+/* --------- Transitions --------- */
 
 /* Slide transition */
 .slide-enter-active,
@@ -76,6 +78,9 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
+
+/* --------- Transitions --------- */
+
 .input {
   border: 1px solid green;
   padding: 10px;

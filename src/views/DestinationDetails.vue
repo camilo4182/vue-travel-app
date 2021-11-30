@@ -39,7 +39,9 @@
           </router-link>
         </div>
       </div>
-      <router-view :key="$route.path" />
+      <transition name="fade" mode="out-in">
+        <router-view :key="$route.path" />
+      </transition>
     </section>
   </div>
 </template>
@@ -119,5 +121,15 @@ p {
   font-weight: bold;
   text-shadow: 0 0 15px #000;
   text-decoration: none;
+}
+
+/* --------- Transitions --------- */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
